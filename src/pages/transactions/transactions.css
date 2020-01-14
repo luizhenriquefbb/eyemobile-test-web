@@ -1,0 +1,36 @@
+/* transactions.css */
+
+.page-filter {
+	float: left;
+	position: relative;
+	overflow: auto;
+	padding: 0;
+	margin-right: 11px;
+	width: 116px;
+	top: -21px;
+}
+
+.page-filter .page-filter-item {
+	text-align: center;
+	color: #737689;
+	margin: 10px auto;
+	padding: 10px 11px;
+	cursor: pointer;
+}
+.page-filter .page-filter-item.on {
+    color: #737689;
+}
+
+.page-filter .page-filter-item:hover {
+    
+}
+
+.page-filter .page-filter-item i{
+
+}
+
+.page-filter .page-filter-item span {
+	font-size: 12px;
+	text-transform: uppercase;
+}
+

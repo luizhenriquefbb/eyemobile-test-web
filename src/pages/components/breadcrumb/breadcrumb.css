@@ -1,0 +1,32 @@
+.breadcrumb{
+    display: flex;
+    flex-direction: row;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+	display: inline-block;
+	padding-right: 0.5rem;
+	color: #6c757d;
+	content: "|";
+}
+
+.breadcrumb ol li {
+	font-size: 1rem;
+  font-weight: 400;
+}
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+.breadcrumb-item.active {
+	color: #6c757d;
+}
+
+.breadcrumb-item + .breadcrumb-item {
+	padding-left: 0.5rem;
+}
+
+

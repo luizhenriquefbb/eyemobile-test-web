@@ -1,7 +1,7 @@
-import { combineReducers } from "redux";
-import transactions from "./transactions";
-import clients from "./clients";
+import { combineReducers, } from 'redux';
+import transactions_reducer from './transactions';
+import clients_reducer from './clients';
 export default combineReducers({
-    transactions,
-    clients,
+    transactions_reducer,
+    clients_reducer,
 });

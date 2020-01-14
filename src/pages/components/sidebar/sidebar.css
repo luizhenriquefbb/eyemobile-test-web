@@ -1,0 +1,42 @@
+/* sidebar.css */
+
+.sidebar {
+	background-color: #09CFA3;
+	float: left;
+	position: relative;
+	overflow: auto;
+	padding: 0;
+	margin-right: 11px;
+	min-height: 100vh;
+	width: 116px;
+	top: -21px;
+}
+
+.sidebar .logo{
+  text-align: center;
+  margin: 30px auto;
+  padding: 10px 0;
+  display: block;
+}
+
+.sidebar .side-item {
+	text-align: center;
+	color: white;
+	margin: 10px auto;
+	padding: 10px 11px;
+	cursor: pointer;
+}
+
+.sidebar .side-item:hover {
+	background: #09AA87;
+}
+
+.sidebar .side-item i{
+
+}
+
+.sidebar .side-item span {
+	font-size: 12px;
+	text-transform: uppercase;
+}
+

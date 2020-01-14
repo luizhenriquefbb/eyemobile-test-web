@@ -1,25 +1,23 @@
 import React from 'react';
 import './App.css';
 import Routes from './routes';
-import { Provider } from 'react-redux';
-import { applyMiddleware, createStore } from 'redux';
-import reduxThunk from 'redux-thunk';
-import reducers from './redux/reducers';
+import { Provider, } from 'react-redux';
 
-const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
+import store from './redux';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <div className="content">
-          <Provider store={store}>
-            <Routes />
-          </Provider>
+    return (
+        <div className="App">
+            <header className="App-header">
+
+                <div className="content">
+                    <Provider store={store}>
+                        <Routes />
+                    </Provider>
+                </div>
+            </header>
         </div>
-      </header>
-    </div>
-  );
+    );
 }
 
 export default App;

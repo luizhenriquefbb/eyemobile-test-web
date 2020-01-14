@@ -1,0 +1,52 @@
+/* clients.css */
+
+.input-container {
+	border-radius: 40px;
+	border: solid 1px grey;
+	padding: 5px 10px;
+	position: relative;
+	width: 191px;
+	display: flex;
+	margin: 23px 0;
+}
+
+.input-container svg{
+	margin-right: 5px;
+}
+
+.input-container .input-field{
+	border: none;
+}
+
+.clients-table {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+}
+
+.clients-table table{
+	width: 100%;
+	text-align: left;
+}
+
+.clients-table table th {
+	color: #09CFA3;
+	height: 50px;
+}
+
+.clients-table table tbody td{
+	color: #737689;
+}
+
+.clients-table table tbody td span {
+	border-radius: 5px;
+	font-size: 13px;
+	background: inherit;
+	width: 100%;
+	display: inline-block;
+	padding: 9px 4px;
+}
+
+.clients-table table tbody tr:nth-child(odd) span{
+	 background-color: #E5E9EF;
+}
