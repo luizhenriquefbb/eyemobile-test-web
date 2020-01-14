@@ -1,17 +1,19 @@
 import React from 'react';
 
-export default function PageFilter() {
+export default function PageFilter(props) {
+
+    const { options, setSelectedFilter, } = props;
 
     return (
         <aside className="page-filter">
-            <div className="page-filter-item">
-                <i></i>
-                <span>Totais</span>
-            </div>
-            <div className="page-filter-item">
-                <i></i>
-                <span>Clients</span>
-            </div>
+            {options.map((option, index) => {
+                return (
+                    <div className={`page-filter-item ${option.selected ? 'on' : ''}`} key={index} onClick={() => { setSelectedFilter(option.name); }}>
+                        <img src={option.icon} alt="" />
+                        <span>{option.name}</span>
+                    </div>
+                );
+            })}
         </aside>
     );
 }

@@ -21,22 +21,32 @@
 
 .sidebar .side-item {
 	text-align: center;
-	color: white;
+	color: #049C7A;
 	margin: 10px auto;
 	padding: 10px 11px;
 	cursor: pointer;
+	display: flex;
+	flex-direction: column;
+	opacity: 0.5;
+}
+
+.sidebar .side-item.on {
+	color: white;
+	opacity: 1;
 }
 
 .sidebar .side-item:hover {
 	background: #09AA87;
 }
 
-.sidebar .side-item i{
-
+.sidebar .side-item .side-bar-icon {
+	margin: 0 auto 7px;
+	display: block;
+	width: 36%;
 }
 
 .sidebar .side-item span {
 	font-size: 12px;
 	text-transform: uppercase;
+	font-family: "Avenir Medium";
 }
-

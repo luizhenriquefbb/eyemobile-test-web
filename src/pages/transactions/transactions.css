@@ -5,9 +5,9 @@
 	position: relative;
 	overflow: auto;
 	padding: 0;
-	margin-right: 11px;
+	margin: 2vh 11px 0 0;
 	width: 116px;
-	top: -21px;
+	/* top: -21px; */
 }
 
 .page-filter .page-filter-item {
@@ -16,17 +16,26 @@
 	margin: 10px auto;
 	padding: 10px 11px;
 	cursor: pointer;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	border-radius: 13px;
+	opacity: 0.3;
 }
+
 .page-filter .page-filter-item.on {
-    color: #737689;
+	color: #737689;
+	opacity: 1;
 }
 
 .page-filter .page-filter-item:hover {
-    
+	background-color: #e4e6ea;
 }
 
-.page-filter .page-filter-item i{
-
+.page-filter .page-filter-item img {
+	width: 51%;
+	display: block;
+	margin: 0 auto 12px;
 }
 
 .page-filter .page-filter-item span {

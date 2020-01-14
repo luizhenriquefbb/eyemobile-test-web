@@ -5,4 +5,14 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #F5F7FA;
+}
+
+input{
+  background-color: inherit;
+}
+
+@font-face {
+  font-family: 'eye-font';
+  src: local('eye-font'), url(./assets/fonts/Avenir.ttc) format('ttc');
 }
