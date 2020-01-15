@@ -2,14 +2,21 @@ import React, { useState, useMemo, useEffect, } from 'react';
 
 import './totals.css';
 import { Doughnut, Bar, } from 'react-chartjs-2';
-import { pie_example, bar_example, pie_options, bar_options, } from './DoughnutDataExample';
+import { bar_example, pie_options, bar_options, } from './DoughnutDataExample';
 import { connect, } from 'react-redux';
 import * as transactionActions from '../../redux/actions/transactionActions';
+import { getColours, } from '../../utils/chartUtils';
 
 function Total(props) {
 
-    const { transactions, filterByPeriod, } = props;
+    // props from reducer
+    const { transactions, } = props;
 
+    // actions
+    const { filterByPeriod, } = props;
+
+    // holds the filter by period info.
+    // it is easier to add or remove it
     const [periods, setPeriods,] = useState([
         { key: 'today', name: 'HOJE', selected: true, },
         { key: 'last_week', name: 'ULTIMA SEMANA', selected: false, },
@@ -18,12 +25,44 @@ function Total(props) {
         { key: 'all', name: 'TODOS', selected: false, },
     ]);
 
+    // when a filter is clicked, the state will changes, so this will be called
     useEffect(() => {
         filterByPeriod(periods.find(period => period.selected).key);
-    }, [periods, filterByPeriod]);
+    }, [periods, filterByPeriod,]);
+
+    // holds a custom data to be use in chart-lib
+    const [transactionsChartData, setTransactionsChartData,] = useState({});
+
+    // converts the transaction state to custom data to be used in chart lib
+    const transactionsToChartData = (transactions) => {
+        // get products names (unique)
+        const labels = [...new Set(transactions.map(transactions => transactions.product_name)),];
+
+        // holds the sum of each product name
+        const data = [];
+        for (const productName of labels) {
+            const transactionsPerProduct = transactions.filter(transaction =>
+                transaction.product_name === productName);
+
+            const sum = transactionsPerProduct.reduce((sum, current) =>
+                sum + parseFloat(current.amount || 0), 0);
+            data.push(sum);
+        }
+
+        const colours = getColours(labels.length);
+
+        const datasets = [{
+            backgroundColor: colours,
+            borderWidth: 1,
+            data,
+        },];
+
+        setTransactionsChartData({ labels, datasets, });
+    };
 
     useMemo(() => {
         console.log('transactions', transactions);
+        transactionsToChartData(transactions);
     }, [transactions,]);
 
     const selectFilter = (period_key) => {
@@ -60,7 +99,7 @@ function Total(props) {
                     <div className="services">
                         <span className="title">SERVIÇOS</span>
                         <div className="services-chart">
-                            <Doughnut data={pie_example} options={pie_options} />
+                            <Doughnut data={transactionsChartData} options={pie_options} />
                         </div>
                     </div>
                     <div className="profit">

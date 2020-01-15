@@ -8,7 +8,10 @@ export default function PageFilter(props) {
         <aside className="page-filter">
             {options.map((option, index) => {
                 return (
-                    <div className={`page-filter-item ${option.selected ? 'on' : ''}`} key={index} onClick={() => { setSelectedFilter(option.name); }}>
+                    <div
+                        className={`page-filter-item ${option.selected ? 'on' : ''}`}
+                        key={index} onClick={() => { setSelectedFilter(option.name); }}
+                    >
                         <img src={option.icon} alt="" />
                         <span>{option.name}</span>
                     </div>

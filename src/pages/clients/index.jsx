@@ -7,10 +7,13 @@ import { connect, } from 'react-redux';
 import { faSearch, } from '@fortawesome/free-solid-svg-icons';
 
 function Clients(props) {
+    // local state
     const [filterValue, setFilterValue,] = useState('');
 
+    // filterByName is a action to change from redux
     const { filterByName, } = props;
 
+    // we we change the input (filter), call this
     useEffect(() => { filterByName(filterValue); }, [filterValue, filterByName,]);
 
     return (

@@ -1,3 +1,5 @@
+// temporary file to use mocks for charts
+
 export const pie_example = {
 
     labels: ['New Customers', 'Return Customers',],

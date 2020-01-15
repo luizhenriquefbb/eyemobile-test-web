@@ -45,6 +45,12 @@
         "semi": [
             "warn",
             "always"
+        ],
+        "max-len": [
+            "warn",
+            {
+                "code": 100
+            }
         ]
     }
 }
