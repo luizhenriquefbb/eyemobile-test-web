@@ -11,20 +11,20 @@ import ic_clientes from '../../assets/Ico/ic_clientes.svg';
 
 export default function Transactions() {
 
-    const [selectedFilter, setSelectedFilter,] = useState(<Clients />);
+    const [selectedFilter, setSelectedFilter,] = useState(<Total />);
 
     const [options, setOptions,] = useState([
         {
             name: 'Total',
             component: <Total />,
             icon: ic_totais,
-            selected: false,
+            selected: true,
         },
         {
             name: 'Clients',
             component: <Clients />,
             icon: ic_clientes,
-            selected: true,
+            selected: false,
         },
     ]);
 

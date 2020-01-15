@@ -1,2 +1,3 @@
 - [sidebar](https://reactjsexample.com/react-side-nav-component/)
 - [fontawesome](https://github.com/FortAwesome/react-fontawesome)
+- [chartsjs](https://github.com/jerairrest/react-chartjs-2)

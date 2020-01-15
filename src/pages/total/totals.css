@@ -1,0 +1,54 @@
+/* totals.css */
+
+.totals-filter{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.totals-filter .filter-button {
+	background: #09D0A3;
+	color: #FFF;
+	padding: 7px 19px;
+	border: none;
+	border-radius: 25px;
+	margin: 0 23px 11px 0;
+	font-size: 16px;
+	opacity: 0.5;
+    cursor: pointer;
+}
+
+.totals-filter .filter-button.on {
+	opacity: 1;
+}
+
+.period-container {
+	display: flex;
+	flex-direction: column;
+	margin-top: 52px;
+}
+
+
+.period-container .title{
+	color: #737689;
+	font-size: 25px;
+}
+
+.period-container .total-value {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 49px;
+}
+
+
+.period-container .total-value .value{
+	color: #09D0A3;
+	font-size: 70px;
+}
+
+.period-container .charts{
+	display: flex;
+	justify-content: space-around;
+	text-align: center;
+}
