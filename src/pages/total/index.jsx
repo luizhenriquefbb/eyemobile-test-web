@@ -1,17 +1,30 @@
-import React, { useState, } from 'react';
+import React, { useState, useMemo, useEffect, } from 'react';
 
 import './totals.css';
 import { Doughnut, Bar, } from 'react-chartjs-2';
 import { pie_example, bar_example, pie_options, bar_options, } from './DoughnutDataExample';
+import { connect, } from 'react-redux';
+import * as transactionActions from '../../redux/actions/transactionActions';
 
-export default function Total() {
+function Total(props) {
+
+    const { transactions, filterByPeriod, } = props;
 
     const [periods, setPeriods,] = useState([
         { key: 'today', name: 'HOJE', selected: true, },
-        { key: 'last_weak', name: 'ULTIMA SEMANA', selected: false, },
+        { key: 'last_week', name: 'ULTIMA SEMANA', selected: false, },
         { key: 'lest_month', name: 'ULTIMO MES', selected: false, },
         { key: 'other', name: 'OUTRO PERIODO', selected: false, },
+        { key: 'all', name: 'TODOS', selected: false, },
     ]);
+
+    useEffect(() => {
+        filterByPeriod(periods.find(period => period.selected).key);
+    }, [periods, filterByPeriod]);
+
+    useMemo(() => {
+        console.log('transactions', transactions);
+    }, [transactions,]);
 
     const selectFilter = (period_key) => {
         const period_copy = [...periods,];
@@ -64,3 +77,11 @@ export default function Total() {
         </div>
     );
 }
+
+const mapStateToProps = ({ transactions_reducer, }) => {
+    return {
+        transactions: Object.values(transactions_reducer),
+    };
+};
+
+export default connect(mapStateToProps, transactionActions)(Total);

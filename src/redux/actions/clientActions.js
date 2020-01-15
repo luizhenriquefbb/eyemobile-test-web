@@ -1,4 +1,4 @@
-export const filterByName = (clientName = '') => async (dispatch) => {
+export const filterByName = (clientName = '') => (dispatch) => {
     dispatch({
         type: 'FILTER_CLIENT',
         clientName,

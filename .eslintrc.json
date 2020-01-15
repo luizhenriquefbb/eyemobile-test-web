@@ -19,17 +19,32 @@
         "react"
     ],
     "rules": {
-        "indent": ["error", 4],
+        "indent": [
+            "error",
+            4,
+            {
+                "SwitchCase": 1
+            }
+        ],
         "react/jsx-uses-react": "error",
         "react/jsx-uses-vars": "error",
-        "quotes":["warn", "single"],
-        "comma-dangle": ["warn", {
-            "arrays": "always",
-            "objects": "always",
-            "imports": "always",
-            "exports": "never",
-            "functions": "never"
-        }],
-        "semi": ["warn", "always"]
+        "quotes": [
+            "warn",
+            "single"
+        ],
+        "comma-dangle": [
+            "warn",
+            {
+                "arrays": "always",
+                "objects": "always",
+                "imports": "always",
+                "exports": "never",
+                "functions": "never"
+            }
+        ],
+        "semi": [
+            "warn",
+            "always"
+        ]
     }
 }
