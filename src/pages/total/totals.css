@@ -52,3 +52,20 @@
 	justify-content: space-around;
 	text-align: center;
 }
+
+.period-container .charts .legend .legend-product-element{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.period-container .charts .legend .legend-product-element span{
+  font-size: 10px;
+}
+
+.period-container .charts .legend-product-element .legend-icon {
+	--size: 34px;
+	width: var(--size);
+	height: var(--size);
+	position: relative;
+}

@@ -4,12 +4,12 @@ export default class NotFound extends Component {
 
     render() {
         return (
-            <div className="">
-                <div className="body">
-                    <SideBar />
+            <>
+                <SideBar />
+                <div style={{'display': 'flex','flex-direction': 'column',}}>
                     <h1>Página não encontrada</h1>
                 </div>
-            </div>
+            </>
         );
     }
 }
