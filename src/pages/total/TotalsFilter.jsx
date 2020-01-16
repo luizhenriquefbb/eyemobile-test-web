@@ -7,11 +7,11 @@ function TotalsFilter(props) {
     // holds the filter by period info.
     // it is easier to add or remove it
     const [periods, setPeriods,] = useState([
-        { key: 'today', name: 'HOJE', selected: true, },
+        { key: 'today', name: 'HOJE', selected: false, },
         { key: 'last_week', name: 'ULTIMA SEMANA', selected: false, },
         { key: 'lest_month', name: 'ULTIMO MES', selected: false, },
         { key: 'other', name: 'OUTRO PERIODO', selected: false, },
-        { key: 'all', name: 'TODOS', selected: false, },
+        { key: 'all', name: 'TODOS', selected: true, },
     ]);
 
     // actions

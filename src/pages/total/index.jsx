@@ -12,6 +12,12 @@ function Total(props) {
 
     const [total, setTotal,] = useState(0);
 
+    /**
+     * @deprecated because I realise transactions of type "Despesas" are positive values.
+     * (We need to subtract from total)
+     *
+     * @param {*} transactions
+     */
     // eslint-disable-next-line no-unused-vars
     const getTotalAmount_deprecated = (transactions) => {
         let total;
@@ -49,7 +55,7 @@ function Total(props) {
                     <span className="value">{currencyFormat(total)}</span>
                 </div>
 
-                <Charts />
+                <Charts total={total} />
 
             </div>
         </div>

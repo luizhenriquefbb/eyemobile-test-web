@@ -51,19 +51,39 @@
 	display: flex;
 	justify-content: space-around;
 	text-align: center;
+	flex-wrap: wrap;
+	max-height: 390px;
+	overflow-y: scroll;
+	width: 100%;
 }
 
-.period-container .charts .legend .legend-product-element{
+.period-container .charts > *:first-child{
+	margin-bottom: 40px;
+}
+
+.period-container .charts .legend .legend-product-element,
+.period-container .charts .legend .total
+{
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.period-container .charts .legend .legend-product-element span{
-  font-size: 10px;
+.period-container .charts .legend .total{
+	margin-top: 10px;
 }
 
-.period-container .charts .legend-product-element .legend-icon {
+.period-container .charts .legend span{
+	font-size: 10px;
+	display: flex;
+	align-items: center;
+}
+
+.period-container .charts .legend span.total{
+	font-weight: bold;
+}
+
+.period-container .charts .legend-icon {
 	--size: 34px;
 	width: var(--size);
 	height: var(--size);

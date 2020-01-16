@@ -4,11 +4,15 @@ import { pie_options, bar_options, bar_default, pie_default, } from './ChartsCon
 import ic_circle from '../components/icons/ic_circle';
 import { getColours, } from '../../utils/chartUtils';
 import { connect, } from 'react-redux';
+import { currencyFormat, percentageFormat, } from '../../utils/currencyUtils';
 
 function Charts(props) {
 
     // local state from reducer
     const { transactions, } = props;
+
+    // state from father
+    const { total, } = props;
 
     // holds a custom data to be used in chart lib (must be in a specific format,
     // @see [[chartsjs](https://github.com/jerairrest/react-chartjs-2)])
@@ -99,7 +103,7 @@ function Charts(props) {
 
 
     // just a shortcut to this elements:
-    const productsData = servicesChartData.datasets ? servicesChartData.datasets[0] : null;
+    const servicesData = servicesChartData.datasets ? servicesChartData.datasets[0] : null;
     const profitData = profitsChartData.datasets ? profitsChartData.datasets : null;
 
     return (
@@ -113,15 +117,26 @@ function Charts(props) {
                     />
                     <div className="legend">
                         <div className="products">
-                            {productsData && productsData.backgroundColor.map((color, index) => {
+                            {servicesData && servicesData.backgroundColor.map((color, index) => {
                                 return (
                                     <div
                                         className="legend-product-element"
                                         key={`legend-product-element-${index}`}
                                     >
                                         <>
-                                            {ic_circle({ color: color, className: 'legend-icon', })}
-                                            <span>{servicesChartData.labels[index]}</span>
+                                            <span>
+                                                {ic_circle({
+                                                    color: color,
+                                                    className: 'legend-icon',
+                                                })}
+                                                <span>{servicesChartData.labels[index]}</span>
+                                            </span>
+                                            <span
+                                                className="total"
+                                            >
+                                                {currencyFormat(servicesData.data[index])} -
+                                                {percentageFormat(servicesData.data[index], total)}
+                                            </span>
                                         </>
                                     </div>
                                 );
@@ -130,7 +145,10 @@ function Charts(props) {
 
                         </div>
                         <div className="total">
-
+                            <span>TOTAL: </span>
+                            <span className="total">
+                                {currencyFormat(total)} - 100%
+                            </span>
                         </div>
 
                     </div>
@@ -153,11 +171,17 @@ function Charts(props) {
                                         key={`legend-product-element-${index}`}
                                     >
                                         <>
-                                            {ic_circle({
-                                                color: data.backgroundColor,
-                                                className: 'legend-icon',
-                                            })}
-                                            <span>{data.label[0]}</span>
+                                            <span>
+                                                {ic_circle({
+                                                    color: data.backgroundColor,
+                                                    className: 'legend-icon',
+                                                })}
+                                                <span>{data.label[0]}</span>
+                                            </span>
+                                            <span className="total">
+                                                {currencyFormat(data.data[0])} -
+                                                {percentageFormat(data.data[0], total)}
+                                            </span>
                                         </>
                                     </div>
                                 );
@@ -165,10 +189,6 @@ function Charts(props) {
                             })}
 
                         </div>
-                        <div className="total">
-
-                        </div>
-
                     </div>
                 </div>
             </div>
