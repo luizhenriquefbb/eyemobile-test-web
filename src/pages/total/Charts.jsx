@@ -1,19 +1,53 @@
-import React from 'react';
+import React, { useMemo, useState, } from 'react';
 import { Doughnut, Bar, } from 'react-chartjs-2';
-import { pie_options, bar_options, } from './ChartsConfigs';
+import { pie_options, bar_options, bar_example, pie_default, } from './ChartsConfigs';
 import ic_circle from '../components/icons/ic_circle';
+import { getColours, } from '../../utils/chartUtils';
+import { connect, } from 'react-redux';
 
-export default function (props) {
+function Charts(props) {
 
-    // local state from props
-    const { services_data, profit_data, } = props;
+    // local state from reducer
+    const { transactions, } = props;
 
-    // get charts colors base on props
-    // const [servicesColors, setServicesColors] = useState({});
-    // const [profit_data, setProfit_data] = useState({});
+    // holds a custom data to be used in chart lib (must be in a specific format,
+    // @see [[chartsjs](https://github.com/jerairrest/react-chartjs-2)])
+    const [servicesChartData, setServicesChartData,] = useState(pie_default);
 
-    const productsData = services_data.datasets[0];
-    const profitData = profit_data.datasets;
+    const productsData = servicesChartData.datasets ? servicesChartData.datasets[0] : null;
+    const profitData = bar_example.datasets;
+
+    // converts the transaction state to custom data to be used in chart lib
+    const servicesToChartData = (transactions) => {
+        // get products names (unique)
+        const labels = [...new Set(transactions.map(transactions => transactions.product_name)),];
+
+        // holds the sum of each product name
+        const data = [];
+        for (const productName of labels) {
+            const transactionsPerProduct = transactions.filter(transaction =>
+                transaction.product_name === productName);
+
+            const sum = transactionsPerProduct.reduce((sum, current) =>
+                sum + parseFloat(current.amount || 0), 0);
+            data.push(sum);
+        }
+
+        const colours = getColours(labels.length);
+
+        const datasets = [{
+            backgroundColor: colours,
+            borderWidth: 1,
+            data,
+        },];
+
+        setServicesChartData({ labels, datasets, });
+    };
+
+    useMemo(() => {
+        servicesToChartData(transactions);
+    }, [transactions,]);
+
 
     return (
         <div className="charts">
@@ -21,12 +55,12 @@ export default function (props) {
                 <span className="title">SERVIÇOS</span>
                 <div className="services-chart">
                     <Doughnut
-                        data={services_data}
+                        data={servicesChartData}
                         options={pie_options}
                     />
                     <div className="legend">
                         <div className="products">
-                            {productsData.backgroundColor.map((color, index) => {
+                            {productsData && productsData.backgroundColor.map((color, index) => {
                                 return (
                                     <div
                                         className="legend-product-element"
@@ -34,7 +68,7 @@ export default function (props) {
                                     >
                                         <>
                                             {ic_circle({ color: color, className: 'legend-icon', })}
-                                            <span>{services_data.labels[index]}</span>
+                                            <span>{servicesChartData.labels[index]}</span>
                                         </>
                                     </div>
                                 );
@@ -54,7 +88,7 @@ export default function (props) {
                 <span className="title">DESPESAS X RECEITAS</span>
                 <div className="profit-chart">
                     <Bar
-                        data={profit_data}
+                        data={bar_example}
                         options={bar_options}
                     />
                     <div className="legend">
@@ -88,3 +122,12 @@ export default function (props) {
         </div>
     );
 }
+
+
+const mapStateToProps = ({ transactions_reducer, }) => {
+    return {
+        transactions: Object.values(transactions_reducer),
+    };
+};
+
+export default connect(mapStateToProps, null)(Charts);

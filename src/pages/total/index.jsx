@@ -1,47 +1,15 @@
 import React, { useState, useMemo, } from 'react';
-
 import './totals.css';
 import { connect, } from 'react-redux';
-import { getColours, } from '../../utils/chartUtils';
 import TotalsFilter from './TotalsFilter';
 import Charts from './Charts';
-import { bar_example, } from './ChartsConfigs';
 
 function Total(props) {
 
     // props from reducer
     const { transactions, } = props;
 
-    // holds a custom data to be use in chart-lib
-    const [transactionsChartData, setTransactionsChartData,] = useState({});
     const [total, setTotal,] = useState(0);
-
-    // converts the transaction state to custom data to be used in chart lib
-    const transactionsToChartData = (transactions) => {
-        // get products names (unique)
-        const labels = [...new Set(transactions.map(transactions => transactions.product_name)),];
-
-        // holds the sum of each product name
-        const data = [];
-        for (const productName of labels) {
-            const transactionsPerProduct = transactions.filter(transaction =>
-                transaction.product_name === productName);
-
-            const sum = transactionsPerProduct.reduce((sum, current) =>
-                sum + parseFloat(current.amount || 0), 0);
-            data.push(sum);
-        }
-
-        const colours = getColours(labels.length);
-
-        const datasets = [{
-            backgroundColor: colours,
-            borderWidth: 1,
-            data,
-        },];
-
-        setTransactionsChartData({ labels, datasets, });
-    };
 
     const getTotalAmount = (transactions) => {
         let total;
@@ -51,10 +19,7 @@ function Total(props) {
     };
 
     useMemo(() => {
-        transactionsToChartData(transactions);
-
         setTotal(getTotalAmount(transactions));
-
     }, [transactions,]);
 
     const currencyFormat = (num) => {
@@ -77,10 +42,7 @@ function Total(props) {
                     <span className="value">{currencyFormat(total)}</span>
                 </div>
 
-                <Charts
-                    services_data={transactionsChartData}
-                    profit_data={bar_example}
-                />
+                <Charts />
 
             </div>
         </div>

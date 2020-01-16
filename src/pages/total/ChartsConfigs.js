@@ -1,4 +1,17 @@
 // temporary file to use mocks for charts
+
+export const pie_default = {
+    labels: ['none',],
+    datasets: [
+        {
+            backgroundColor: ['rgba(200,200,200,1)',],
+            borderColor: ['rgba(200,200,200,1)',],
+            data: [1,],
+            barPercentage: 0.4,
+        },
+    ],
+};
+
 export const pie_options = {
     cutoutPercentage: 70,
     legend: {
