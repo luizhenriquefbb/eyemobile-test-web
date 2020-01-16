@@ -1,6 +1,6 @@
 import React, { useMemo, useState, } from 'react';
 import { Doughnut, Bar, } from 'react-chartjs-2';
-import { pie_options, bar_options, bar_example, pie_default, } from './ChartsConfigs';
+import { pie_options, bar_options, bar_default, pie_default, } from './ChartsConfigs';
 import ic_circle from '../components/icons/ic_circle';
 import { getColours, } from '../../utils/chartUtils';
 import { connect, } from 'react-redux';
@@ -13,9 +13,7 @@ function Charts(props) {
     // holds a custom data to be used in chart lib (must be in a specific format,
     // @see [[chartsjs](https://github.com/jerairrest/react-chartjs-2)])
     const [servicesChartData, setServicesChartData,] = useState(pie_default);
-
-    const productsData = servicesChartData.datasets ? servicesChartData.datasets[0] : null;
-    const profitData = bar_example.datasets;
+    const [profitsChartData, setProfitsChartData,] = useState(bar_default);
 
     // converts the transaction state to custom data to be used in chart lib
     const servicesToChartData = (transactions) => {
@@ -44,10 +42,65 @@ function Charts(props) {
         setServicesChartData({ labels, datasets, });
     };
 
+    // converts the transaction state to custom data to be used in chart lib
+    const profitsToChartData = (transactions) => {
+        /**
+         * Creates a new data set
+         * @param {string} label
+         * @param {number} data
+         * @param {string} color eg: 'rgba(255, 255, 255, 1)'
+         */
+        const getNewDataSet = (label, data, color) => {
+
+            if (!color) {
+                color = getColours(1);
+            }
+
+            return {
+                label: [label,],
+                backgroundColor: [color,],
+                borderColor: [color,],
+                data: [data,],
+                barPercentage: 0.4,
+                borderWidth: 1,
+            };
+
+        };
+
+        // get products names (unique)
+        const labels = [...new Set(transactions.map(transaction => transaction.type)),];
+        // get same number of colors
+        const colours = getColours(labels.length);
+
+        // data to return
+        const datasets = [];
+
+        for (const index in labels) {
+            const typeName = labels[index];
+
+            const transactionsPerProduct = transactions.filter(transaction =>
+                transaction.type === typeName);
+
+            const sum = transactionsPerProduct.reduce((sum, current) =>
+                sum + parseFloat(current.amount || 0), 0);
+
+            datasets.push(getNewDataSet(typeName, sum, colours[index]));
+        }
+
+
+        setProfitsChartData({ datasets, });
+    };
+
+    // every time transactions changed on reducer:
     useMemo(() => {
         servicesToChartData(transactions);
+        profitsToChartData(transactions);
     }, [transactions,]);
 
+
+    // just a shortcut to this elements:
+    const productsData = servicesChartData.datasets ? servicesChartData.datasets[0] : null;
+    const profitData = profitsChartData.datasets ? profitsChartData.datasets : null;
 
     return (
         <div className="charts">
@@ -88,12 +141,12 @@ function Charts(props) {
                 <span className="title">DESPESAS X RECEITAS</span>
                 <div className="profit-chart">
                     <Bar
-                        data={bar_example}
+                        data={profitsChartData}
                         options={bar_options}
                     />
                     <div className="legend">
                         <div className="products">
-                            {profitData.map((data, index) => {
+                            {profitData && profitData.map((data, index) => {
                                 return (
                                     <div
                                         className="legend-product-element"

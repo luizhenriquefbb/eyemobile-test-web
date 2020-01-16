@@ -20,7 +20,7 @@ export const pie_options = {
     },
 };
 
-export const bar_example = {
+export const bar_default = {
     // labels: ['Return Customers', 'one more',],
     datasets: [
         {
