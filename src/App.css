@@ -16,3 +16,10 @@ input{
   font-family: 'eye-font';
   src: local('eye-font'), url(./assets/fonts/Avenir.ttc) format('ttc');
 }
+
+@media only screen and (max-width: 768px) {
+  .content {
+    display: flex;
+    flex-direction: column;
+  }
+}

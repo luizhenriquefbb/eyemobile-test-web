@@ -50,3 +50,9 @@
 	text-transform: uppercase;
 	font-family: "Avenir Medium";
 }
+
+@media only screen and (max-width: 768px) {
+    .sidebar {
+      display: none;
+    }
+}
