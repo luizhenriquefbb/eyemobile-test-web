@@ -1,6 +1,6 @@
 import React, { useMemo, useState, } from 'react';
 import { Doughnut, Bar, } from 'react-chartjs-2';
-import { pie_options, bar_options, bar_default, pie_default, } from './ChartsConfigs';
+import { pie_options, bar_options, } from './ChartsConfigs';
 import ic_circle from '../components/icons/ic_circle';
 import { getColours, } from '../../utils/chartUtils';
 import { connect, } from 'react-redux';
@@ -16,8 +16,8 @@ function Charts(props) {
 
     // holds a custom data to be used in chart lib (must be in a specific format,
     // @see [[chartsjs](https://github.com/jerairrest/react-chartjs-2)])
-    const [servicesChartData, setServicesChartData,] = useState(pie_default);
-    const [profitsChartData, setProfitsChartData,] = useState(bar_default);
+    const [servicesChartData, setServicesChartData,] = useState({});
+    const [profitsChartData, setProfitsChartData,] = useState({});
 
     // converts the transaction state to custom data to be used in chart lib
     const servicesToChartData = (transactions) => {
@@ -65,7 +65,7 @@ function Charts(props) {
                 backgroundColor: [color,],
                 borderColor: [color,],
                 data: [data,],
-                barPercentage: 0.4,
+                barPercentage: 0.2,
                 borderWidth: 1,
             };
 
@@ -134,8 +134,9 @@ function Charts(props) {
                                             <span
                                                 className="total"
                                             >
-                                                {currencyFormat(servicesData.data[index])} -
-                                                {percentageFormat(servicesData.data[index], total)}
+                                                {currencyFormat(servicesData.data[index])} &nbsp;
+                                                ({percentageFormat(servicesData.data[index],
+                                                    total)})
                                             </span>
                                         </>
                                     </div>
@@ -147,7 +148,7 @@ function Charts(props) {
                         <div className="total">
                             <span>TOTAL: </span>
                             <span className="total">
-                                {currencyFormat(total)} - 100%
+                                {currencyFormat(total)} &nbsp; (100%)
                             </span>
                         </div>
 
@@ -179,8 +180,8 @@ function Charts(props) {
                                                 <span>{data.label[0]}</span>
                                             </span>
                                             <span className="total">
-                                                {currencyFormat(data.data[0])} -
-                                                {percentageFormat(data.data[0], total)}
+                                                {currencyFormat(data.data[0])} &nbsp;
+                                                ({percentageFormat(data.data[0], total)})
                                             </span>
                                         </>
                                     </div>

@@ -1,5 +1,3 @@
-// temporary file to use mocks for charts
-
 export const pie_default = {
     labels: ['none',],
     datasets: [

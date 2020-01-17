@@ -9,6 +9,8 @@ export default function SideBar() {
     const location = useLocation();
     const history = useHistory();
 
+    const screenHeight = window.innerHeight + 'px';
+
     // in order to use navigation
     const [currentLocation, setCurrentLocation,] = useState(location.pathname);
 
@@ -21,7 +23,7 @@ export default function SideBar() {
     };
 
     return (
-        <aside className="sidebar">
+        <aside className="sidebar" style={{ height: screenHeight, }}>
             <div className="side-item-logo" onClick={() => changePage('faturamento')}>
                 <img src={logo} alt="" className="logo" />
             </div>

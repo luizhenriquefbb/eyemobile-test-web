@@ -26,7 +26,9 @@
 .period-container {
 	display: flex;
 	flex-direction: column;
-	margin-top: 52px;
+	padding-top: 52px;
+	max-height: 560px;
+	/*! overflow: auto; */
 }
 
 .period-container .title{
@@ -51,13 +53,13 @@
 	text-align: center;
 }
 
-.period-container .charts{
+.period-container .charts {
 	display: flex;
 	justify-content: space-around;
 	text-align: center;
 	flex-wrap: wrap;
-	max-height: 390px;
-	overflow-y: scroll;
+	/* max-height: 350px; */
+	/*! overflow: unset; */
 	width: 100%;
 }
 
@@ -101,13 +103,13 @@
 	}
 
 	.period-container {
-		overflow-y: scroll;
+		/*! overflow-y: scroll; */
 		/* margin: unset; */
 	}
 
 
 	.period-container .charts {
-		overflow-y: hidden;
+		/*! overflow-y: hidden; */
 		max-height: unset;
 		margin-bottom: 30px;
 	}
