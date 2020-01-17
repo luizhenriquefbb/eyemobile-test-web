@@ -2,7 +2,7 @@ import React, { useState, } from 'react';
 import SideBar from '../components/sidebar/sidebar';
 import Breadcrumb from '../components/breadcrumb';
 import Clients from '../clients';
-import Total from '../total';
+import Totais from '../totais';
 import './transactions.css';
 import PageFilter from './pageFilter';
 
@@ -11,17 +11,17 @@ import ic_clientes from '../../assets/Ico/ic_clientes.svg';
 
 export default function Transactions() {
 
-    const [selectedFilter, setSelectedFilter,] = useState(<Total />);
+    const [selectedFilter, setSelectedFilter,] = useState(<Totais />);
 
     const [options, setOptions,] = useState([
         {
-            name: 'Total',
-            component: <Total />,
+            name: 'TOTAIS',
+            component: <Totais />,
             icon: ic_totais,
             selected: true,
         },
         {
-            name: 'Clients',
+            name: 'CLIENTES',
             component: <Clients />,
             icon: ic_clientes,
             selected: false,

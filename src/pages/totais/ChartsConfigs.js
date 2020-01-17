@@ -18,6 +18,14 @@ export const pie_options = {
         display: false,
         position: 'bottom',
     },
+    layout: {
+        padding: {
+            left: 0,
+            right: 0,
+            top: 10,
+            bottom: 0,
+        },
+    },
 };
 
 export const bar_default = {
@@ -58,5 +66,13 @@ export const bar_options = {
     legend: {
         display: false,
         position: 'bottom',
+    },
+    layout: {
+        padding: {
+            left: 0,
+            right: 0,
+            top: 10,
+            bottom: 0,
+        },
     },
 };

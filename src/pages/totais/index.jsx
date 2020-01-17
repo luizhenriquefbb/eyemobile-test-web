@@ -3,6 +3,7 @@ import './totals.css';
 import { connect, } from 'react-redux';
 import TotalsFilter from './TotalsFilter';
 import Charts from './Charts';
+import Clear from '../components/clear';
 import { currencyFormat, } from '../../utils/currencyUtils';
 
 function Total(props) {
@@ -54,6 +55,9 @@ function Total(props) {
                     <span className="title">VALOR TOTAL</span>
                     <span className="value">{currencyFormat(total)}</span>
                 </div>
+
+
+                <Clear color="default"/>
 
                 <Charts total={total} />
 
