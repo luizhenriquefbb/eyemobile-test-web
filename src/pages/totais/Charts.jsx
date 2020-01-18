@@ -5,14 +5,20 @@ import ic_circle from '../components/icons/ic_circle';
 import { getColours, } from '../../utils/chartUtils';
 import { connect, } from 'react-redux';
 import { currencyFormat, percentageFormat, } from '../../utils/currencyUtils';
+import { getTotalAmount, getTotalAmount_sum, } from '../../redux/actions/models/transactionModel';
 
 function Charts(props) {
 
     // local state from reducer
     const { transactions, } = props;
 
-    // state from father
-    const { total, } = props;
+    const [total, setTotal,] = useState(0); // holds profit - loss
+    const [total_sum, setTotal_sum,] = useState(0); // holds profit + loss
+
+    useMemo(() => {
+        setTotal(getTotalAmount(transactions));
+        setTotal_sum(getTotalAmount_sum(transactions));
+    }, [transactions,]);
 
     // holds a custom data to be used in chart lib (must be in a specific format,
     // @see [[chartsjs](https://github.com/jerairrest/react-chartjs-2)])
@@ -22,7 +28,10 @@ function Charts(props) {
     // converts the transaction state to custom data to be used in chart lib
     const servicesToChartData = (transactions) => {
         // get products names (unique)
-        const labels = [...new Set(transactions.map(transactions => transactions.product_name)),];
+        let labels = [...new Set(transactions.map(transactions => transactions.product_name)),];
+
+        // for some reason the mockup ignores "folha de pagamento", so do we:
+        labels = labels.filter(label => label !== 'Folha de pagamento');
 
         // holds the sum of each product name
         const data = [];
@@ -73,12 +82,14 @@ function Charts(props) {
 
         // get products names (unique)
         const labels = [...new Set(transactions.map(transaction => transaction.type)),];
+
         // get same number of colors
-        const colours = getColours(labels.length);
+        const colours = getColours(labels.length, 'bar');
 
         // data to return
         const datasets = [];
 
+        // for each label, create a new new dataSet
         for (const index in labels) {
             const typeName = labels[index];
 
@@ -116,42 +127,50 @@ function Charts(props) {
                         options={pie_options}
                     />
                     <div className="legend">
-                        <div className="products">
-                            {servicesData && servicesData.backgroundColor.map((color, index) => {
-                                return (
-                                    <div
-                                        className="legend-product-element"
-                                        key={`legend-product-element-${index}`}
-                                    >
-                                        <>
-                                            <span>
-                                                {ic_circle({
-                                                    color: color,
-                                                    className: 'legend-icon',
-                                                })}
-                                                <span>{servicesChartData.labels[index]}</span>
-                                            </span>
-                                            <span
-                                                className="total"
-                                            >
-                                                {currencyFormat(servicesData.data[index])} &nbsp;
-                                                ({percentageFormat(servicesData.data[index],
-                                                    total)})
-                                            </span>
-                                        </>
-                                    </div>
-                                );
+                        {servicesData && servicesData.data.length > 0 &&
+                            <div className="products">
+                                {servicesData.backgroundColor.map((color, index) => {
+                                    return (
+                                        <div
+                                            className="legend-product-element"
+                                            key={`legend-product-element-${index}`}
+                                        >
+                                            <>
+                                                <span>
+                                                    {ic_circle({
+                                                        color: color,
+                                                        className: 'legend-icon',
+                                                    })}
+                                                    <span>{servicesChartData.labels[index]}</span>
+                                                </span>
+                                                <span
+                                                    className="total"
+                                                >
+                                                    {currencyFormat(servicesData.data[index])}
+                                                    &nbsp;
+                                                    ({percentageFormat(servicesData.data[index],
+                                                        total)})
+                                                </span>
+                                            </>
+                                        </div>
+                                    );
 
-                            })}
+                                })}
 
-                        </div>
+                            </div>
+                        }
                         <div className="total">
-                            <span>TOTAL: </span>
+                            <span>
+                                {ic_circle({
+                                    color: 'none',
+                                    className: 'legend-icon',
+                                })}
+                                <span>TOTAL: </span>
+                            </span>
                             <span className="total">
                                 {currencyFormat(total)} &nbsp; (100%)
                             </span>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -181,7 +200,7 @@ function Charts(props) {
                                             </span>
                                             <span className="total">
                                                 {currencyFormat(data.data[0])} &nbsp;
-                                                ({percentageFormat(data.data[0], total)})
+                                                ({percentageFormat(data.data[0], total_sum)})
                                             </span>
                                         </>
                                     </div>

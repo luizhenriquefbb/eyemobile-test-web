@@ -8,14 +8,16 @@
 	width: 191px;
 	display: flex;
 	margin: 23px 0;
+	background: white;
 }
 
 .input-container svg{
 	margin-right: 5px;
 }
 
-.input-container .input-field{
+.input-container .input-field {
 	border: none;
+	width: 100%;
 }
 
 .clients-table {
@@ -27,7 +29,7 @@
 .clients-table table {
 	width: 100%;
 	text-align: left;
-	min-width: 856px;
+	min-width: 958px;
 }
 
 .clients-table table th {
@@ -49,7 +51,14 @@
 }
 
 .clients-table table tbody tr:nth-child(odd) span{
-	 background-color: #E5E9EF;
+	background-color: #E5E9EF;
+}
+
+.clients-table table tr th:last-of-type,
+.clients-table table tr td:last-of-type {
+	text-align: end;
+	padding: 0 30px 0 0;
+	max-width: min-content;
 }
 
 @media only screen and (max-width: 768px) {

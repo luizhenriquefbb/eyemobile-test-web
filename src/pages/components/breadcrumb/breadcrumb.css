@@ -7,12 +7,13 @@
 	font-family: 'DIN Condensed Bold';
 	padding: 0;
 	align-items: center;
+	color: #828594;
 }
 
 .breadcrumb-nav {
 	border-bottom: solid var(--grey-1) 1px;
-	margin: 11px;
-	padding-bottom: 7px;
+	margin: 24px 0;
+	padding: 1px 0px 20px 40px;
 	font-family: 'avenir';
 }
 
@@ -46,6 +47,11 @@
 }
 
 @media only screen and (max-width: 768px) {
+	.breadcrumb-nav {
+		margin: 11px;
+		padding: 7px;
+	}
+
 	.breadcrumb-nav ol li .icon {
 		display: block;
 	}

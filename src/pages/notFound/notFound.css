@@ -1,0 +1,23 @@
+.back-to-main {
+	display: none;
+	flex-direction: column;
+	background-color: #09CFA3;
+	align-items: center;
+	border: none;
+	border-radius: 5px;
+	padding: 16px 0;
+	max-width: 209px;
+}
+
+.back-to-main span{
+    color: white;
+    margin-top: 16px;
+}
+
+@media only screen and (max-width: 768px) {
+    .back-to-main {
+        display: flex;
+        max-width: 50%;
+        margin-left: 25%;
+    }
+}

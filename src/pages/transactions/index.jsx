@@ -47,10 +47,12 @@ export default function Transactions() {
     return (
         <>
             <SideBar />
-            <Breadcrumb />
+            <div>
+                <Breadcrumb />
 
-            <PageFilter setSelectedFilter={selectFilter} options={options} />
-            {selectedFilter}
+                <PageFilter setSelectedFilter={selectFilter} options={options} />
+                {selectedFilter}
+            </div>
         </>
     );
 }

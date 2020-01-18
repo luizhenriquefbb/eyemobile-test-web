@@ -1,18 +1,19 @@
 import React from 'react';
 import './breadcrumb.css';
 import ic_menu from '../../../assets/Ico/ic_menu.svg';
+import { connect, } from 'react-redux';
+import * as sidebarActions from '../../../redux/actions/sidebarActions';
 
-export default function () {
+function Breadcrumb(props) {
 
-    const toggleSideBar = () => {
-        // ??
-    };
+    // actions from reducer
+    const { toggleSidebar, } = props;
 
     return (
         <nav className="breadcrumb-nav">
             <ol className="breadcrumb">
                 <li className="breadcrumb-item" onClick={() => {
-                    toggleSideBar();
+                    toggleSidebar();
                 }}>
                     <img src={ic_menu} alt="menu" className="icon" />
                     PET SHOP
@@ -22,3 +23,11 @@ export default function () {
         </nav>
     );
 }
+
+const mapStateToProps = ({ sidebar_reducer, }) => {
+    return {
+        showSideBar: sidebar_reducer.showSideBar,
+    };
+};
+
+export default connect(mapStateToProps, sidebarActions)(Breadcrumb);

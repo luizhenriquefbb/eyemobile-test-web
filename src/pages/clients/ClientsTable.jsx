@@ -4,7 +4,7 @@ import { connect, } from 'react-redux';
 
 function ClientsTable(props) {
 
-    const {clients,} = props;
+    const { clients, } = props;
 
     return (
         <div className="clients-table">

@@ -1,4 +1,8 @@
 export const currencyFormat = (num) => {
+    if (!num) {
+        return 'R$ 0,00';
+    }
+
     return (
         ' R$' +
         num
@@ -9,5 +13,8 @@ export const currencyFormat = (num) => {
 };
 
 export const percentageFormat = (num, total) => {
+    if (!num || !total) {
+        return '0.00 %';
+    }
     return (num / total * 100).toFixed(2) + ' %';
 };

@@ -35,3 +35,32 @@ export const filterByPeriod = (transactions, period, otherRange = 0) => {
             return transactions;
     }
 };
+
+/**
+ * @return "Lucros + Despesas"
+ * @param {*} transactions
+ */
+export const getTotalAmount_sum = (transactions) => {
+    let total;
+    total = transactions.reduce((total, current) =>
+        total + parseFloat(current.amount || 0), 0);
+    return total;
+};
+
+/**
+ * @return "Lucros - Despesas"
+ * @param {*} transactions
+ */
+export const getTotalAmount = (transactions) => {
+    let total;
+    total = transactions.reduce((total, current) => {
+        if (current.type === 'Receitas') {
+            return total + parseFloat(current.amount || 0);
+        }
+        else {
+            return total - parseFloat(current.amount || 0);
+
+        }
+    }, 0);
+    return total;
+};

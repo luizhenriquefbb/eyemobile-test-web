@@ -5,6 +5,7 @@ import TotalsFilter from './TotalsFilter';
 import Charts from './Charts';
 import Clear from '../components/clear';
 import { currencyFormat, } from '../../utils/currencyUtils';
+import { getTotalAmount } from '../../redux/actions/models/transactionModel';
 
 function Total(props) {
 
@@ -12,34 +13,6 @@ function Total(props) {
     const { transactions, } = props;
 
     const [total, setTotal,] = useState(0);
-
-    /**
-     * @deprecated because I realise transactions of type "Despesas" are positive values.
-     * (We need to subtract from total)
-     *
-     * @param {*} transactions
-     */
-    // eslint-disable-next-line no-unused-vars
-    const getTotalAmount_deprecated = (transactions) => {
-        let total;
-        total = transactions.reduce((total, current) =>
-            total + parseFloat(current.amount || 0), 0);
-        return total;
-    };
-
-    const getTotalAmount = (transactions) => {
-        let total;
-        total = transactions.reduce((total, current) => {
-            if (current.type === 'Receitas') {
-                return total + parseFloat(current.amount || 0);
-            }
-            else {
-                return total - parseFloat(current.amount || 0);
-
-            }
-        }, 0);
-        return total;
-    };
 
     useMemo(() => {
         setTotal(getTotalAmount(transactions));
@@ -57,9 +30,9 @@ function Total(props) {
                 </div>
 
 
-                <Clear color="default"/>
+                <Clear color="default" />
 
-                <Charts total={total} />
+                <Charts />
 
             </div>
         </div>
