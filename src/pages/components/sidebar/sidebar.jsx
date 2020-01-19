@@ -1,4 +1,4 @@
-import React, { useState, } from 'react';
+import React, { useState, useLayoutEffect,} from 'react';
 import { useHistory, useLocation, } from 'react-router-dom';
 import './sidebar.css';
 import logo from '../../../assets/Ico/ic_logo.svg';
@@ -19,8 +19,19 @@ function SideBar(props) {
     const { toggleSidebar, } = props;
 
     // get screen size
-    const screenHeight = window.innerHeight;
-    const screenWidth = window.innerWidth;
+    function useWindowSize() {
+        const [size, setSize,] = useState([0, 0,]);
+        useLayoutEffect(() => {
+            function updateSize() {
+                setSize([window.innerWidth, window.innerHeight,]);
+            }
+            window.addEventListener('resize', updateSize);
+            updateSize();
+            return () => window.removeEventListener('resize', updateSize);
+        }, []);
+        return size;
+    }
+    const [screenWidth, screenHeight,] = useWindowSize();
 
     // in order to use navigation
     const [currentLocation, setCurrentLocation,] = useState(location.pathname);
@@ -33,6 +44,7 @@ function SideBar(props) {
         }
         toggleSidebar(false);
     };
+
 
     return (
         <aside

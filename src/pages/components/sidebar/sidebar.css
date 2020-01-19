@@ -3,7 +3,7 @@
 .sidebar {
 	background-color: #09CFA3;
 	float: left;
-	position: relative;
+	position: fixed;
 	overflow: auto;
 	padding: 0;
 	margin-right: 11px;
@@ -13,6 +13,7 @@
 
 .sidebar + * {
 	top: -8px;
+	margin-left: 125px;
 }
 
 .sidebar .toggle-sidebar {
@@ -77,6 +78,7 @@
 
 	.sidebar + * {
 		max-height: 100vh;
+		margin-left: unset;
 	}
 
 }
